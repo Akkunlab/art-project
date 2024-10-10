@@ -22,7 +22,7 @@ void OSC::setup(const std::string& ipAddress, int port) {
 void OSC::sendClusterData(const std::vector<std::pair<float, float>>& clusterCenters) {
   char buffer[OUTPUT_BUFFER_SIZE];
   osc::OutboundPacketStream p(buffer, OUTPUT_BUFFER_SIZE);
-  p << osc::BeginMessage("/lidar/touchClusters");
+  p << osc::BeginMessage(OSC_ADDRESS);
 
   for (const auto& center : clusterCenters) {
     p << center.first << center.second;
