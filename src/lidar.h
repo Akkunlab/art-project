@@ -57,10 +57,10 @@ public:
   void setSingleChannel(bool isSingleChannel);
   void setFrequency(float frequency);
 
-  bool selectPort();
-  bool selectBaudrate();
+  std::string selectPort();
+  int selectBaudrate();
   bool selectSingleChannel();
-  bool selectFrequency();
+  float selectFrequency();
 
 private:
   CYdLidar laser;

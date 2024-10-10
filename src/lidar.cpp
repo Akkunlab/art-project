@@ -32,7 +32,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  *********************************************************************/
 
+#include "config.h"
 #include "lidar.h"
+#include "osc.h"
 #include <iostream>
 #include <algorithm>
 #include <cctype>
@@ -80,9 +82,9 @@ void Lidar::setupLidarOptions() {
   b_optvalue = false;
   laser.setlidaropt(LidarPropSupportHeartBeat, &b_optvalue, sizeof(bool));
 
-  f_optvalue = 180.0f;
+  f_optvalue = maxAngleDegree;
   laser.setlidaropt(LidarPropMaxAngle, &f_optvalue, sizeof(float));
-  f_optvalue = -180.0f;
+  f_optvalue = minAngleDegree;
   laser.setlidaropt(LidarPropMinAngle, &f_optvalue, sizeof(float));
   f_optvalue = 64.f;
   laser.setlidaropt(LidarPropMaxRange, &f_optvalue, sizeof(float));
@@ -127,7 +129,7 @@ void Lidar::setFrequency(float frequency) {
   laser.setlidaropt(LidarPropScanFrequency, &frequency, sizeof(float));
 }
 
-bool Lidar::selectPort() {
+std::string Lidar::selectPort() {
   std::map<std::string, std::string> ports = getPortList();
   std::string port;
 
@@ -149,9 +151,7 @@ bool Lidar::selectPort() {
         std::string number;
         std::cin >> number;
 
-        if ((size_t)atoi(number.c_str()) >= ports.size()) {
-          continue;
-        }
+        if ((size_t)atoi(number.c_str()) >= ports.size()) continue;
 
         auto it = ports.begin();
         std::advance(it, atoi(number.c_str()));
@@ -161,13 +161,13 @@ bool Lidar::selectPort() {
     }
   }
 
-  if (!ydlidar::os_isOk()) return false;
+  if (!ydlidar::os_isOk()) return "";
 
   setPort(port);
-  return true;
+  return port;
 }
 
-bool Lidar::selectBaudrate() {
+int Lidar::selectBaudrate() {
   std::map<int, int> baudrateList = getBaudrateList();
   int baudrate = 230400;
 
@@ -181,18 +181,16 @@ bool Lidar::selectBaudrate() {
     std::string number;
     std::cin >> number;
 
-    if ((size_t)atoi(number.c_str()) >= baudrateList.size()) {
-      continue;
-    }
+    if ((size_t)atoi(number.c_str()) >= baudrateList.size()) continue;
 
     baudrate = baudrateList[atoi(number.c_str())];
     break;
   }
 
-  if (!ydlidar::os_isOk()) return false;
+  if (!ydlidar::os_isOk()) return -1;
 
   setBaudrate(baudrate);
-  return true;
+  return baudrate;
 }
 
 bool Lidar::selectSingleChannel() {
@@ -200,34 +198,31 @@ bool Lidar::selectSingleChannel() {
   std::string input_channel;
   printf("Whether the Lidar is one-way communication [yes/no]:");
   std::cin >> input_channel;
-  std::transform(input_channel.begin(), input_channel.end(),
-                 input_channel.begin(),
-                 [](unsigned char c) { return std::tolower(c); });
-  if (input_channel.find("y") != std::string::npos)
-    isSingleChannel = true;
+  std::transform(input_channel.begin(), input_channel.end(), input_channel.begin(), [](unsigned char c) { return std::tolower(c); });
+
+  if (input_channel.find("y") != std::string::npos) isSingleChannel = true;
 
   setSingleChannel(isSingleChannel);
-  return ydlidar::os_isOk();
+  return isSingleChannel;
 }
 
-bool Lidar::selectFrequency() {
+float Lidar::selectFrequency() {
   float frequency = 5.0;
   std::string input_frequency;
   while (ydlidar::os_isOk()) {
     printf("Please enter the lidar scan frequency[5-12]:");
     std::cin >> input_frequency;
     frequency = atof(input_frequency.c_str());
-    if (frequency <= 12 && frequency >= 5.0) {
-      break;
-    }
-    fprintf(stderr, "Invalid scan frequency,"
-            "The scanning frequency range is 5 to 12 HZ, Please re-enter.\n");
+
+    if (frequency <= 12 && frequency >= 5.0) break;
+
+    fprintf(stderr, "Invalid scan frequency, The scanning frequency range is 5 to 12 HZ, Please re-enter.\n");
   }
 
-  if (!ydlidar::os_isOk()) return false;
+  if (!ydlidar::os_isOk()) return -1;
 
   setFrequency(frequency);
-  return true;
+  return frequency;
 }
 
 bool Lidar::initialize() {
