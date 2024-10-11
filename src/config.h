@@ -11,7 +11,7 @@
 #define DEFAULT_OSC_PORT 7000
 
 #define OUTPUT_BUFFER_SIZE 8192
-#define OSC_ADDRESS "/lidar/touchClusters"
+#define OSC_ADDRESS "/lidar/touch"
 #define dev_printf(...) if(isDevelopmentMode) { printf(__VA_ARGS__); }
 
 extern bool isDevelopmentMode;
