@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
     return -1;
   }
 
-  //* Scanİ’è */
+  /* Scanİ’è */
   LaserScan scan;
 
   while (ydlidar::os_isOk()) {
