@@ -9,5 +9,4 @@ set(SOURCES
 
 add_executable(ydlidar-touch ${SOURCES})
 
-# Include directory for oscpack headers
-include_directories(${CMAKE_SOURCE_DIR}/lib/oscpack/include)
+include_directories(${CMAKE_SOURCE_DIR}/include)

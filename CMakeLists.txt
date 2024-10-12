@@ -12,9 +12,16 @@ add_subdirectory(ydlidar-touch)
 # Link oscpack as a static library
 add_library(oscpack STATIC IMPORTED)
 set_target_properties(oscpack PROPERTIES
-    IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/oscpack/lib/oscpack.lib
-    INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/lib/oscpack/include
+  IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/oscpack.lib
+  INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_SOURCE_DIR}/include/ip;${CMAKE_SOURCE_DIR}/include/osc"
 )
 
-# Link oscpack to ydlidar-touch
-target_link_libraries(ydlidar-touch oscpack)
+# Link ydlidar_sdk as a static library
+add_library(ydlidar_sdk STATIC IMPORTED)
+set_target_properties(ydlidar_sdk PROPERTIES
+  IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/lib/ydlidar_sdk.lib
+  INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/include/ydlidar_sdk
+)
+
+# Link oscpack and ydlidar_sdk to ydlidar-touch
+target_link_libraries(ydlidar-touch oscpack ydlidar_sdk)
