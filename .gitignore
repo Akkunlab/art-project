@@ -30,3 +30,7 @@ compile_commands.json
 *.log
 *.tmp
 *.swp
+
+# Ignore library files
+*.lib
+*.a
