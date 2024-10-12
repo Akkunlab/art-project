@@ -24,6 +24,10 @@ cd art-project
 
 `lib/` ディレクトリに `YDLIDAR SDK` および `oscpack` ライブラリを配置する必要があります。`YDLIDAR` および `oscpack` のバイナリファイル（`.lib`）を`lib/`に配置してください。
 
+```bash
+mkdir lib
+```
+
 ### 3. Build the Project
 
 次に、プロジェクトをビルドします。以下のコマンドでビルドディレクトリを作成し、CMakeを実行してビルドを行います。
