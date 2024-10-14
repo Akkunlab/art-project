@@ -9,7 +9,13 @@
 template<typename T>
 
 void setupParameter(const std::string& prompt, T& parameter, const T& defaultValue, std::function<bool(const std::string&)> validation = nullptr) {
-  std::cout << prompt << " [default: " << defaultValue << ", type 'd' to use default]: ";
+  
+  if constexpr (std::is_same<T, bool>::value) {
+    std::cout << prompt << " [default: " << (defaultValue ? "Enabled" : "Disabled") << ", type 'd' to use default]: ";
+  } else {
+    std::cout << prompt << " [default: " << defaultValue << ", type 'd' to use default]: ";
+  }
+
   std::string input;
   std::cin >> input;
 
