@@ -6,8 +6,9 @@ set(CMAKE_CXX_STANDARD 14)
 # Enable CMP0079 policy
 cmake_policy(SET CMP0079 NEW)
 
-# Add subdirectory for ydlidar-touch
+# Add subdirectory
 add_subdirectory(ydlidar-touch)
+add_subdirectory(ydlidar-osc)
 
 # Link oscpack as a static library
 add_library(oscpack STATIC IMPORTED)
@@ -23,5 +24,6 @@ set_target_properties(ydlidar_sdk PROPERTIES
   INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_SOURCE_DIR}/include/ydlidar_sdk
 )
 
-# Link oscpack and ydlidar_sdk to ydlidar-touch
+# Link oscpack and ydlidar_sdk
 target_link_libraries(ydlidar-touch oscpack ydlidar_sdk)
+target_link_libraries(ydlidar-osc oscpack ydlidar_sdk)
