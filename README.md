@@ -17,12 +17,18 @@ YDLIDAR-Touch は、**YDLIDAR センサの範囲内で検出されたタッチ�
 
 詳しくは [こちら](./ydlidar-touch/README.md) をご覧ください。
 
+### 3. DMX-Controller
+DMX-Controller は、**TouchDesignerを使用してuDMX信号を制御する**アプリケーションです。
+
+詳しくは [こちら](./dmx-controller/README.md) をご覧ください。
+
 ## Required Libraries
 
 プロジェクト全体をビルド・実行するためには、以下のライブラリが必要です：
 
 - [YDLidar-SDK](https://github.com/YDLIDAR/YDLidar-SDK) （LIDARデータの処理）
 - [oscpack](http://www.audiomulch.com/~rossb/code/oscpack/) （OSCメッセージの送受信）
+- [pyudmx](https://github.com/dhocker/udmx-pyusb) （uDMX信号の送受信）
 
 ## How to Use
 
@@ -38,6 +44,8 @@ cd art-project
 ### 2. Install Required Libraries
 
 `lib/` ディレクトリに `YDLIDAR SDK` および `oscpack` ライブラリを配置する必要があります。`YDLIDAR` および `oscpack` のバイナリファイル（`.lib`）を`lib/`に配置してください。
+
+また、その他のライブラリも必要に応じてインストールしてください。
 
 ```bash
 mkdir lib
