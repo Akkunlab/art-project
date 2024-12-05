@@ -34,3 +34,6 @@ compile_commands.json
 # Ignore library files
 *.lib
 *.a
+
+# test files
+test/
