@@ -4,7 +4,13 @@
 # Make sure the corresponding toggle is enabled in the Panel Execute DAT.
 
 def onOffToOn(panelValue):
-    skip_sliders = ['slider13', 'slider14', 'slider19', 'slider20']
+    include_sliders = [
+        'slider1', 'slider2', 'slider3', 'slider4',
+        'slider7', 'slider8', 'slider9', 'slider10',
+        'slider20',
+        'slider32',
+        'slider37', 'slider38', 'slider39', 'slider40',
+    ]
     gui_base_path = '/project1/GUI'
     gui = op(gui_base_path)
 
@@ -12,7 +18,7 @@ def onOffToOn(panelValue):
     for slider in gui.findChildren(name='slider*', type=COMP):
 
         # スキップ
-        if slider.name in skip_sliders:
+        if slider.name not in include_sliders:
             continue  
 
         field = slider.op('field1/string')
