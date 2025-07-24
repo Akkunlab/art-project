@@ -28,7 +28,7 @@ DMX-Controller は、**TouchDesignerを使用してuDMX信号を制御する**�
 
 - [YDLidar-SDK](https://github.com/YDLIDAR/YDLidar-SDK) （LIDARデータの処理）
 - [oscpack](http://www.audiomulch.com/~rossb/code/oscpack/) （OSCメッセージの送受信）
-- [pyudmx](https://github.com/dhocker/udmx-pyusb) （uDMX信号の送受信）
+- [udmx-pyusb](https://github.com/dhocker/udmx-pyusb) （uDMX信号の送受信）
 
 ## How to Use
 

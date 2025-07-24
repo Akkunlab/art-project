@@ -6,7 +6,7 @@ DMX-Controller は、**TouchDesignerを使用してuDMX信号を制御する**�
 
 このプログラムを使用するには、以下のPythonライブラリが必要です：
 
-- [pyudmx](https://github.com/dhocker/udmx-pyusb) （uDMX信号の送受信）
+- [udmx-pyusb](https://github.com/dhocker/udmx-pyusb) （uDMX信号の送受信）
 
 ## How to Use
 
@@ -21,10 +21,10 @@ cd art-project
 
 ### 2. Install Required Libraries
 
-TouchDesignerのPython環境に`pyudmx`をインストールする必要があります。
+TouchDesignerのPython環境に`udmx-pyusb`をインストールする必要があります。
 
 ```bash
-"C:\Program Files\Derivative\TouchDesigner\bin\python.exe" -m pip install pyudmx
+"C:\Program Files\Derivative\TouchDesigner\bin\python.exe" -m pip install udmx-pyusb
 ```
 
 ### 3. Run the Application
