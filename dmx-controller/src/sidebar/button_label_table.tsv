@@ -1,9 +1,10 @@
 GUI
-Cam Rot
+Cam
+RST
 0
 255
-Out
-RBW
 Fade
+RBW
 Audio
 OSC
+Out

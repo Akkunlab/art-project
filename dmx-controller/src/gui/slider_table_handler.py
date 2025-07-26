@@ -10,18 +10,18 @@
 # 
 # If rows or columns are deleted, sizeChange will be called instead of row/col/cellChange.
 
-
 def onTableChange(dat):
+    button_val = op('/project1/side_bar_out')['Out'].eval()
 
     # DMX信号を送信
-    dmx_controller = mod('/project1/dmx_controller')
+    udmx = mod('/project1/udmx')
     index = op('/project1/GUI/label_table')[int(parent(2).name.split('r')[-1]) - 1, 1]
-    dmx_controller.cv[index] = int(dat[0, 0].val)
-    
-    if op('/project1/side_bar/null1')['v3'] == 1:
-        dmx_controller.send()
+    udmx.cv[index] = int(dat[0, 0].val)
+
+    if button_val:
+        udmx.send()
     
     # デバッグ出力
-    print(f'{index}: {dmx_controller.cv[index]}')
+    print(f'{index}: {udmx.cv[index]}')
 
     return
