@@ -7,6 +7,7 @@
 # 
 # Make sure the corresponding toggle is enabled in the CHOP Execute DAT.
 
+steps = 64
 
 # RGB sliders
 sliders = [
@@ -19,13 +20,13 @@ def onValueChange(channel, sampleIndex, val, prev):
 
     if button_val == 1:
         c = channel.owner
-        r = c['r'][sampleIndex]
-        g = c['g'][sampleIndex]
-        b = c['b'][sampleIndex]
-        values = [r, g, b]
+        r = round(c['r'][sampleIndex] * (steps - 1)) / (steps - 1)
+        g = round(c['g'][sampleIndex] * (steps - 1)) / (steps - 1)
+        b = round(c['b'][sampleIndex] * (steps - 1)) / (steps - 1)
 
         for group in sliders:
             for i in range(3):
-                op(f'GUI/{group[i]}/field1/string')[0, 0] = round(values[i])
+                op(f'GUI/{group[i]}/field1/string')[0, 0] = int([r, g, b][i])
+                op('art_net_const').par['value{}'.format(i+1)] = int([r, g, b][i])
 
     return

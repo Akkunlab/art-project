@@ -12,16 +12,19 @@
 
 def onTableChange(dat):
     button_val = op('/project1/side_bar_out')['Out'].eval()
+    val = int(dat[0, 0].val)
 
     # DMX信号を送信
     udmx = mod('/project1/udmx')
+    art_net = op('/project1/art_net_const')
     index = op('/project1/GUI/label_table')[int(parent(2).name.split('r')[-1]) - 1, 1]
-    udmx.cv[index] = int(dat[0, 0].val)
+    udmx.cv[index] = int(val)
 
     if button_val:
+        getattr(art_net.par, f'value{index}').val = int(val)
         udmx.send()
     
     # デバッグ出力
-    print(f'{index}: {udmx.cv[index]}')
+    print(f'{index}: {val}')
 
     return
